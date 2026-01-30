@@ -2,6 +2,8 @@ package com.example.unitTesting.ServiceTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,4 +37,15 @@ public class getProductTesting {
         verify(repo).findById(1);
         
     }
+@Test
+public void getProduct_NotFound_Test(){
+
+    when(repo.findById(anyInt())).thenReturn(Optional.empty());
+
+    assertThrows(IllegalArgumentException.class, () -> {
+        productService.getProduct(1);
+    });
+
+    verify(repo).findById(1);
+}
 }

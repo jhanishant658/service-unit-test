@@ -2,6 +2,8 @@ package com.example.unitTesting.ServiceTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,5 +30,17 @@ public class addProductTesting {
      assertNotNull(result);
      assertEquals("Laptop", result.getName());
      verify(repo).save(product);
+    }
+    @Test
+    public void addProduct_EmptyName_Test(){
+        Product product = new Product(1 , "" , 100);
+        assertThrows(IllegalArgumentException.class, ()-> productService.addProduct(product));
+        verify(repo, never()).save(product);
+    }
+    @Test
+    public void addProduct_NegativePrice_Test(){
+        Product product = new Product(1 , "Laptop" , -100) ; 
+        assertThrows(IllegalArgumentException.class, ()->productService.addProduct(product));
+        verify(repo, never()).save(product);
     }
 }
