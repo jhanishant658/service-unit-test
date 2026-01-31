@@ -20,5 +20,21 @@ public class ProductService {
     }
    public Product getProduct(int id){
         return productRepo.findById(id).orElseThrow(()->new IllegalArgumentException("Product Not Found"));
+
+   }
+   public Product updateProduct(Product p) {
+
+    if (p.getPrice() < 1 || p.getName() == null || p.getName().isBlank()) {
+        throw new IllegalArgumentException("Invalid Product Data");
     }
+
+    Product existingProduct = productRepo.findById(p.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Product Not Found"));
+
+    existingProduct.setName(p.getName());
+    existingProduct.setPrice(p.getPrice());
+
+    return productRepo.save(existingProduct);
+}
+   
 }
