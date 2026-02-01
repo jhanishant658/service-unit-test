@@ -36,5 +36,11 @@ public class ProductService {
 
     return productRepo.save(existingProduct);
 }
-   
+   public Product deleteProduct(int id){
+    Product existingProduct = productRepo.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Product Not Found"));
+    // Assuming there's a delete method in the repository
+       return  productRepo.delete(existingProduct);
+   }
+
 }

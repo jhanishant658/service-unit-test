@@ -10,4 +10,5 @@ import com.example.unitTesting.Entities.Product;
 public interface ProductRepo {
  Optional<Product> findById(int id);
  Product save(Product product);
+ Product delete(Product existingProduct);
 }
