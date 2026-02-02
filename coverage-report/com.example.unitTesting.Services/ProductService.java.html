@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Unit testing</a> &gt; <a href="index.source.html" class="el_package">com.example.unitTesting.Services</a> &gt; <span class="el_source">ProductService.java</span></div><h1>ProductService.java</h1><pre class="source lang-java linenums">package com.example.unitTesting.Services;
+import org.springframework.stereotype.Service;
+
+import com.example.unitTesting.Entities.Product;
+import com.example.unitTesting.Repositories.ProductRepo;
+
+@Service
+public class ProductService {
+    private final ProductRepo productRepo;
+
+<span class="fc" id="L11">    public ProductService(ProductRepo productRepo){</span>
+<span class="fc" id="L12">        this.productRepo = productRepo;</span>
+<span class="fc" id="L13">    }</span>
+    public Product addProduct(Product product){
+<span class="fc bfc" id="L15" title="All 4 branches covered.">     if(product.getPrice()&lt;1|| product.getName().isEmpty()){</span>
+<span class="fc" id="L16">         throw new IllegalArgumentException(&quot;Invalid Product Data&quot;);</span>
+     }
+<span class="fc" id="L18">        productRepo.save(product);</span>
+<span class="fc" id="L19">    return product;</span>
+    }
+   public Product getProduct(int id){
+<span class="fc" id="L22">        return productRepo.findById(id).orElseThrow(()-&gt;new IllegalArgumentException(&quot;Product Not Found&quot;));</span>
+
+   }
+   public Product updateProduct(Product p) {
+
+<span class="pc bpc" id="L27" title="2 of 6 branches missed.">    if (p.getPrice() &lt; 1 || p.getName() == null || p.getName().isBlank()) {</span>
+<span class="fc" id="L28">        throw new IllegalArgumentException(&quot;Invalid Product Data&quot;);</span>
+    }
+
+<span class="fc" id="L31">    Product existingProduct = productRepo.findById(p.getId())</span>
+<span class="pc" id="L32">            .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Product Not Found&quot;));</span>
+
+<span class="fc" id="L34">    existingProduct.setName(p.getName());</span>
+<span class="fc" id="L35">    existingProduct.setPrice(p.getPrice());</span>
+
+<span class="fc" id="L37">    return productRepo.save(existingProduct);</span>
+}
+   public Product deleteProduct(int id){
+<span class="fc" id="L40">    Product existingProduct = productRepo.findById(id)</span>
+<span class="fc" id="L41">            .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Product Not Found&quot;));</span>
+    // Assuming there's a delete method in the repository
+<span class="fc" id="L43">       return  productRepo.delete(existingProduct);</span>
+   }
+   
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
