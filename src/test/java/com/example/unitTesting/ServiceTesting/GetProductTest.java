@@ -20,7 +20,7 @@ import com.example.unitTesting.Repositories.ProductRepo;
 import com.example.unitTesting.Services.ProductService;
 
 @ExtendWith(MockitoExtension.class)
-public class getProductTesting {
+public class GetProductTest {
     
     @Mock
     ProductRepo repo;

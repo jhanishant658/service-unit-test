@@ -16,7 +16,7 @@ import com.example.unitTesting.Entities.Product;
 import com.example.unitTesting.Repositories.ProductRepo;
 import com.example.unitTesting.Services.ProductService;
 @ExtendWith(MockitoExtension.class)
-public class addProductTesting {
+public class AddProductTest {
     @Mock
     ProductRepo repo;
     @InjectMocks
