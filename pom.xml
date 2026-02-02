@@ -53,15 +53,35 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+		<plugin>
+              <groupId>org.jacoco</groupId>
+                 <artifactId>jacoco-maven-plugin</artifactId>
+                   <version>0.8.11</version>
+                    <executions>
+
+							<!-- Attach JaCoCo agent -->
+							<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							</execution>
+
+							<!-- Generate HTML report -->
+							<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							</execution>
+
+    </executions>
+</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
